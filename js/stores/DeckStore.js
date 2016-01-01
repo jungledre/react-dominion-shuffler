@@ -17,14 +17,21 @@ let DeckStore = assign({}, EventEmitter.prototype, {
   getDeck: function(options) {
     let cards = [];
     let deck = cardData.cards;
-    deck = _.where(deck, {expansion: data.options.expansion})
+    deck = _.where(deck, {expansion: data.options.expansion || 'Dominion'})
     deck = _.sample(deck, 10);
-    deck = _.sortBy(deck, 'cost')
+    deck = _.sortBy(deck, 'costTreasure')
     return deck;
   },
 
   getDeckOptions: function() {
     return data.options;
+  },
+
+  getExpansionNames: function() {
+    let data = cardData.cards;
+    let expansions = _.pluck(data, 'expansion')
+    expansions = _.uniq(expansions);
+    return expansions
   },
 
   emitChange: function() {

@@ -6,7 +6,8 @@ export default React.createClass({
     getInitialState: function() {
         return {
             deck: DeckStore.getDeck('Dominion'),
-            options: DeckStore.getDeckOptions()
+            options: DeckStore.getDeckOptions(),
+            expansions: DeckStore.getExpansionNames()
         };
     },
 
@@ -27,7 +28,7 @@ export default React.createClass({
 
     render: function() {
         return (
-            <Deck deck={this.state.deck} options={this.state.options} />
+            <Deck deck={this.state.deck} options={this.state.options} expansions={this.state.expansions} />
         );
     }
 });
