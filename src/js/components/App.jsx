@@ -5,7 +5,7 @@ import DeckStore from '../stores/DeckStore';
 export default React.createClass({
     getInitialState: function() {
         return {
-            deck: DeckStore.getDeck('Dominion'),
+            deck: DeckStore.getInitialDeck(),
             options: DeckStore.getDeckOptions(),
             expansions: DeckStore.getExpansionNames()
         };
@@ -21,14 +21,18 @@ export default React.createClass({
 
     _onChange: function() {
         this.setState({
-            deck: DeckStore.getDeck(this.state.options.expansion),
+            deck: DeckStore.getDeck(),
             options: DeckStore.getDeckOptions()
         });
     },
 
     render: function() {
         return (
-            <Deck deck={this.state.deck} options={this.state.options} expansions={this.state.expansions} />
+            <Deck
+                deck={this.state.deck}
+                options={this.state.options}
+                expansions={this.state.expansions}
+            />
         );
     }
 });

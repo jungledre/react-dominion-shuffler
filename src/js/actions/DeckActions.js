@@ -3,8 +3,7 @@ import DeckConstants from '../constants/DeckConstants';
 
 export default {
   /**
-   * @param  {string} id The ID of the plant
-   * @param  {string} deck
+   * @param  {string} deck options
    */
   update: function(options) {
     AppDispatcher.dispatch({
