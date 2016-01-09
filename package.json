@@ -4,13 +4,12 @@
   "description": "",
   "main": "entry.js",
   "scripts": {
-    "test": "npm run compile && mocha --require chai --compilers js:babel-register",
+    "test": "mocha --require chai --compilers js:babel-register",
     "compile": "babel -d lib/ src/",
     "start": "webpack-dev-server"
   },
   "pre-commit": [
-    "npm test",
-    "eslint"
+    "test"
   ],
   "author": "",
   "license": "ISC",

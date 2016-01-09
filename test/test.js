@@ -1,7 +1,7 @@
 import 'babel-polyfill'
-import DeckStore from '../src/js/stores/DeckStore';
-import deckUtils from '../src/js/utils/deck-utils';
-import cardData from '../src/js/data/cards';
+import DeckStore from '../src/stores/DeckStore';
+import deckUtils from '../src/utils/deck-utils';
+import cardData from '../src/data/cards';
 
 import chai from 'chai';
 chai.should();
