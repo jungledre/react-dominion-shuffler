@@ -6,9 +6,11 @@
   "scripts": {
     "test": "mocha --require chai --compilers js:babel-register",
     "compile": "babel -d lib/ src/",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "lint": "eslint src"
   },
   "pre-commit": [
+    "npm run lint",
     "test"
   ],
   "author": "",
@@ -29,6 +31,9 @@
     "babel-register": "^6.3.13",
     "chai": "^3.4.1",
     "cheerio": "^0.19.0",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^3.1.0",
+    "eslint-plugin-react": "^3.14.0",
     "json-loader": "^0.5.4",
     "mocha": "^2.3.4",
     "pre-commit": "^1.1.2",
