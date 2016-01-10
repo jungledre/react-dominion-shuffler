@@ -9,6 +9,12 @@ export default React.createClass({
         return {
             options: {
                 expansion: "Dominion",
+                type: null,
+                plusAction: 0,
+                plusCoin: 0,
+                plusBuy: 0,
+                costTreasure: 0,
+                costPotions: 0,
             }
         }
     },
@@ -18,9 +24,8 @@ export default React.createClass({
     },
 
     handleChangeExpansion: function(val) {
-        val = val.target.value;
         let options = this.state.options
-        options.expansion = val;
+        options.expansion = val.target.value;
         this.setState(options);
         DeckActions.update(this.state.options);
     },
@@ -29,12 +34,11 @@ export default React.createClass({
         val = val.target.value;
         let options = this.state.options
         if (options[val]) {
-            delete options[val]
+            options[val] = 0
         } else {
             options[val] = 1;
         }
-        this.setState(options);
-        DeckActions.update(this.state.options);
+        DeckActions.update(options);
     },
 
     render: function() {

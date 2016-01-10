@@ -1,19 +1,17 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
-import { EventEmitter } from 'events';
 import assign from 'object-assign';
 import _ from 'lodash';
 
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import { EventEmitter } from 'events';
 import deckUtils from '../utils/deck-utils';
-
 import DeckConstants from '../constants/DeckConstants';
+
 const cardData = require('../data/cards');
 const CHANGE_EVENT = 'change';
 
 const data = {
   deck: cardData.cards,
-  options: {
-    expansion: 'Dominion',
-  },
+  options: {},
 };
 
 const DeckStore = assign({}, EventEmitter.prototype, {
@@ -26,21 +24,7 @@ const DeckStore = assign({}, EventEmitter.prototype, {
   },
 
   updateDeck(options) {
-    let deck = _.where(cardData.cards, { expansion: options.expansion || 'Dominion' });
-
-    if (_.some(deck, options) === true) {
-      deck = _(deck)
-        .shuffle()
-        .take(10)
-        .sortBy('plusAction')
-        .value();
-      if (deck.length < 10) {
-        console.log('only ' + deck.length + ' cards fit your criteria');
-      }
-    } else {
-      console.log('not enough cards, select fewer options');
-    }
-    return deck;
+    return deckUtils.shuffleDeck(cardData.cards, options);
   },
 
   getDeckOptions() {
@@ -74,7 +58,7 @@ const DeckStore = assign({}, EventEmitter.prototype, {
 });
 
 // Register callback to handle all updates
-AppDispatcher.register(function (action) {
+AppDispatcher.register(function handleUpdates(action) {
   switch (action.actionType) {
     case DeckConstants.DECK_UPDATE:
       if (action.options) {
