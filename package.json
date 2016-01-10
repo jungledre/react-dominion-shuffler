@@ -7,7 +7,7 @@
     "test": "mocha --require chai --compilers js:babel-register",
     "compile": "babel -d lib/ src/",
     "start": "webpack-dev-server",
-    "lint": "eslint src"
+    "lint": "eslint --ext .js --ext .jsx src"
   },
   "pre-commit": [
     "lint",

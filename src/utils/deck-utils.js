@@ -3,9 +3,10 @@ import _ from 'lodash';
 module.exports = {
   getDeckByExpansionName(deck, expansion) {
     return _(deck)
-    .where({ expansion: expansion || 'Dominion' })
-    .sample(10)
-    .sortBy('plusAction').value();
+      .where({ expansion: expansion || 'Dominion' })
+      .sample(10)
+      .sortBy('plusAction')
+      .value();
   },
 
   updateDeckOptions(deck, options) {
@@ -22,9 +23,9 @@ module.exports = {
 
   shuffleDeck(deck, options) {
     return _(this.updateDeckOptions(deck, options))
-    .compact()
-    .shuffle()
-    .take(10)
-    .value();
+      .compact()
+      .shuffle()
+      .take(10)
+      .value();
   },
 };

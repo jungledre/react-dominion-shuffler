@@ -33,9 +33,9 @@ const DeckStore = assign({}, EventEmitter.prototype, {
 
   getExpansionNames() {
     return _(cardData.cards)
-            .pluck('expansion')
-            .uniq()
-            .value();
+      .pluck('expansion')
+      .uniq()
+      .value();
   },
 
   emitChange() {
