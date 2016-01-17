@@ -36,7 +36,7 @@ module.exports = {
 
     const cards = optionsCards.concat(otherCards);
 
-    return _.sortBy(cards, 'name');
+    return _(cards).sortBy('name').sortBy('expansion').value();
   },
 
   shuffleDeck(deck, options) {

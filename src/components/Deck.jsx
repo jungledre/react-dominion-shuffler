@@ -63,7 +63,7 @@ export default class Deck extends Component {
     }
 
 
-    let checkboxes = ['plusAction', 'plusBuy'];
+    let checkboxes = ['plusAction', 'plusBuy', 'plusCoin'];
     checkboxes = checkboxes.map(name => {
       return (
         <span key={'opt-' + name}>
