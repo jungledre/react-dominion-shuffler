@@ -9,15 +9,26 @@ chai.should();
 let data = {
   deck: cardData.cards,
   options: {
-    expansion: 'Dominion'
+    expansion: 'Dominion',
+    checkBoxes: []
   }
 };
 
 describe('Dominion Deck Utils', function () {
   describe('Initial Deck', function () {
     it('should return only cards from Dominion', function () {
-        var dominionDeck = deckUtils.getDeckByExpansionName(data.deck, 'Dominion');
-        dominionDeck.should.be.length(10);
+      var dominionDeck = deckUtils.getInitialDeck(data.deck);
+      dominionDeck.should.be.length(10);
+    });
+  });
+
+  describe('Initial Deck', function () {
+    it('Should return cards from both Dominion, Seaside and at least one plusAction card', function () {
+      var dominionDeck = deckUtils.updateDeckOptions(data.deck, {
+        expansions: ['Dominion', 'Seaside'],
+        checkBoxes: ['plusAction']
       });
+      dominionDeck.should.be.length(10);
+    });
   });
 });

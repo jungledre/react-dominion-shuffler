@@ -1,31 +1,43 @@
 import _ from 'lodash';
 
 module.exports = {
-  getDeckByExpansionName(deck, expansion) {
+  getInitialDeck(deck) {
     return _(deck)
-      .where({ expansion: expansion || 'Dominion' })
+      .where({ expansion: 'Dominion' })
       .sample(10)
-      .sortBy('plusAction')
+      .sortBy('name')
       .value();
   },
 
   updateDeckOptions(deck, options) {
-    const newDeck = _.where(deck, {
-      expansion: (options.expansion || 'Dominion'),
-    });
-    return newDeck.map(card => {
-      if (card.plusAction >= options.plusAction
-        && card.plusBuy >= options.plusBuy) {
+    const possibleCards = deck.map(card => {
+      if (_.includes(options.expansions, card.expansion)) {
         return card;
       }
+    }).filter(card => {
+      return card !== undefined;
     });
+
+    let optionsCards;
+    if (options.checkBoxes) {
+      optionsCards = options.checkBoxes.map(opt => {
+        return _.find(possibleCards, (card) => {
+          if (card[opt] > 0) {
+            possibleCards.slice(card);
+            return card;
+          }
+        });
+      });
+    }
+
+    const otherCards = possibleCards.slice(0, 10 - optionsCards.length);
+
+    const cards = optionsCards.concat(otherCards);
+
+    return _.sortBy(cards, 'name');
   },
 
   shuffleDeck(deck, options) {
-    return _(this.updateDeckOptions(deck, options))
-      .compact()
-      .shuffle()
-      .take(10)
-      .value();
+    return this.updateDeckOptions(_.shuffle(deck), options);
   },
 };

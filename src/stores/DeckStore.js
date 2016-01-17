@@ -11,12 +11,14 @@ const CHANGE_EVENT = 'change';
 
 const data = {
   deck: cardData.cards,
-  options: {},
+  options: {
+    expansions: ['Dominion'],
+  },
 };
 
 const DeckStore = assign({}, EventEmitter.prototype, {
   getInitialDeck() {
-    return deckUtils.getDeckByExpansionName(data.deck, data.options.expansion);
+    return deckUtils.getInitialDeck(data.deck);
   },
 
   getDeck() {

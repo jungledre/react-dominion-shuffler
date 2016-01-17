@@ -6,17 +6,17 @@ module.exports = {
   },
   module: {
     loaders: [
-            { test: /\.jsx?$/, loader: 'babel-loader' },
-            { test: /\.json$/, loader: 'json-loader' }
-      ]
+      { test: /\.jsx?$/, loader: 'babel-loader' },
+      { test: /\.json$/, loader: 'json-loader' }
+    ]
   },
   devtool: 'source-map',
   resolve: {
     extensions: [
-        '',
-        '.js',
-        '.jsx',
-        '.json'
-      ]
+      '',
+      '.js',
+      '.jsx',
+      '.json'
+    ]
   }
 };

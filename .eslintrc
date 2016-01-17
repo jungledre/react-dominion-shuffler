@@ -1,6 +1,6 @@
 {
   "extends": "airbnb",
-  "plugins": [
-    "react"
-  ]
+  "rules": {
+    "react/jsx-no-bind": [1, "always"]
+  }
 }

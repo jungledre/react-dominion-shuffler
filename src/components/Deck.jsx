@@ -1,61 +1,72 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Card from './Card';
 import DeckActions from '../actions/DeckActions';
 import _ from 'lodash';
 
-export default React.class({
-  getInitialState() {
-    return {
+const propTypes = {
+  deck: PropTypes.array,
+  expansions: PropTypes.array,
+};
+
+export default class Deck extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       options: {
-        expansion: 'Dominion',
-        type: null,
-        plusAction: 0,
-        plusCoin: 0,
-        plusBuy: 0,
-        costTreasure: 0,
-        costPotions: 0,
+        expansions: ['Dominion'],
+        checkBoxes: [],
       },
     };
-  },
+  }
 
   shuffleDeck() {
     DeckActions.update(this.state.options);
-  },
+  }
 
   handleChangeExpansion(val) {
     const options = this.state.options;
-    options.expansion = val.target.value;
+    const selectedOptions = _.toArray(val.target.selectedOptions);
+
+    options.expansions = selectedOptions.map(opt => {
+      return opt.label;
+    });
+
     this.setState(options);
     DeckActions.update(this.state.options);
-  },
+  }
 
   handleChangeCheckboxes(val) {
     const value = val.target.value;
     const options = this.state.options;
-    if (options[value]) {
-      options[value] = 0;
+    if (options.checkBoxes[value]) {
+      options.checkBoxes.splice(value, 1);
     } else {
-      options[value] = 1;
+      options.checkBoxes.push(value);
     }
     DeckActions.update(options);
-  },
+  }
 
   render() {
-    const deckArr = _.toArray(self.props.deck);
-    const deck = deckArr.map((card, idx) => {
-      return (
-        <Card key={'card-' + idx} data={card} />
-      );
-    });
+    const deckArr = _.toArray(this.props.deck);
+    let deck;
+    if (deckArr.length === 10) {
+      deck = deckArr.map((card, idx) => {
+        return (
+          <Card key={'card-' + idx} data={card} />
+        );
+      });
+    } else {
+      deck = <p>Select fewer options</p>;
+    }
 
 
     let checkboxes = ['plusAction', 'plusBuy'];
-    checkboxes = checkboxes.map(function buildCheckboxes(name) {
+    checkboxes = checkboxes.map(name => {
       return (
         <span key={'opt-' + name}>
           <input
             className={'opt-' + name}
-            onChange={self.handleChangeCheckboxes}
+            onChange={this.handleChangeCheckboxes.bind(this)}
             type="checkbox"
             value={name}
           />
@@ -64,19 +75,21 @@ export default React.class({
       );
     });
 
+    const selectedOptions = this.props.expansions.map(function buildOptions(name, idx) {
+      return <option key={'expansion-' + idx} value={name}>{name}</option>;
+    });
+
     return (
       <div className="container">
         <div className="row text-center">
           <h1>Dominion Girl with React</h1>
-          <button className="btn-info" onClick={this.shuffleDeck}>shuffle deck</button>
+          <button className="btn-info" onClick={this.shuffleDeck.bind(this)}>shuffle deck</button>
           <select
+            multiple
             className="opt-expansion"
-            onChange={this.handleChangeExpansion}
-            defaultValue="Dominion"
-          >
-            {self.props.expansions.map(function buildOptions(name, idx) {
-              return <option key={'expansion-' + idx} value={name}>{name}</option>;
-            })};
+            onChange={this.handleChangeExpansion.bind(this)}
+            defaultValue={this.state.expansions}
+          >{selectedOptions}
           </select>
           {checkboxes}
         </div>
@@ -85,5 +98,7 @@ export default React.class({
         </div>
       </div>
     );
-  },
-});
+  }
+}
+
+Deck.propTypes = propTypes;

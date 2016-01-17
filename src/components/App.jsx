@@ -1,30 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Deck from './Deck';
 import DeckStore from '../stores/DeckStore';
 
-export default React.class({
-  getInitialState() {
-    return {
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       deck: DeckStore.getInitialDeck(),
       options: DeckStore.getDeckOptions(),
       expansions: DeckStore.getExpansionNames(),
     };
-  },
+  }
 
   componentDidMount() {
-    DeckStore.addChangeListener(this._onChange);
-  },
+    DeckStore.addChangeListener(this.handleChange.bind(this));
+  }
 
   componentWillUnmount() {
-    DeckStore.removeChangeListener(this._onChange);
-  },
+    DeckStore.removeChangeListener(this.handleChange.bind(this));
+  }
 
-  _onChange() {
+  handleChange() {
     this.setState({
       deck: DeckStore.getDeck(),
       options: DeckStore.getDeckOptions(),
     });
-  },
+  }
 
   render() {
     return (
@@ -33,6 +34,6 @@ export default React.class({
         options={this.state.options}
         expansions={this.state.expansions}
       />
-      );
-  },
-});
+    );
+  }
+}
