@@ -5,6 +5,7 @@ import DeckStore from '../stores/DeckStore';
 export default class App extends Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
       deck: DeckStore.getInitialDeck(),
       options: DeckStore.getDeckOptions(),
@@ -13,11 +14,11 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    DeckStore.addChangeListener(this.handleChange.bind(this));
+    DeckStore.addChangeListener(this.handleChange);
   }
 
   componentWillUnmount() {
-    DeckStore.removeChangeListener(this.handleChange.bind(this));
+    DeckStore.removeChangeListener(this.handleChange);
   }
 
   handleChange() {

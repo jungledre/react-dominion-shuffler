@@ -11,6 +11,9 @@ const propTypes = {
 export default class Deck extends Component {
   constructor(props) {
     super(props);
+    this.handleChangeCheckboxes = this.handleChangeCheckboxes.bind(this);
+    this.handleChangeExpansion = this.handleChangeExpansion.bind(this);
+    this.shuffleDeck = this.shuffleDeck.bind(this);
     this.state = {
       options: {
         expansions: ['Dominion'],
@@ -66,7 +69,7 @@ export default class Deck extends Component {
         <span key={'opt-' + name}>
           <input
             className={'opt-' + name}
-            onChange={this.handleChangeCheckboxes.bind(this)}
+            onChange={this.handleChangeCheckboxes}
             type="checkbox"
             value={name}
           />
@@ -83,11 +86,11 @@ export default class Deck extends Component {
       <div className="container">
         <div className="row text-center">
           <h1>Dominion Girl with React</h1>
-          <button className="btn-info" onClick={this.shuffleDeck.bind(this)}>shuffle deck</button>
+          <button className="btn-info" onClick={this.shuffleDeck}>shuffle deck</button>
           <select
             multiple
             className="opt-expansion"
-            onChange={this.handleChangeExpansion.bind(this)}
+            onChange={this.handleChangeExpansion}
             defaultValue={this.state.expansions}
           >{selectedOptions}
           </select>

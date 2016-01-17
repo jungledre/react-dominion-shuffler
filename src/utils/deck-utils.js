@@ -10,8 +10,10 @@ module.exports = {
   },
 
   updateDeckOptions(deck, options) {
-    const possibleCards = deck.map(card => {
+    let allCards = deck;
+    let possibleCards = allCards.map(card => {
       if (_.includes(options.expansions, card.expansion)) {
+        allCards = _.reject(allCards, card);
         return card;
       }
     }).filter(card => {
@@ -23,7 +25,7 @@ module.exports = {
       optionsCards = options.checkBoxes.map(opt => {
         return _.find(possibleCards, (card) => {
           if (card[opt] > 0) {
-            possibleCards.slice(card);
+            possibleCards = _.reject(possibleCards, card);
             return card;
           }
         });

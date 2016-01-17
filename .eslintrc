@@ -1,6 +1,3 @@
 {
-  "extends": "airbnb",
-  "rules": {
-    "react/jsx-no-bind": [1, "always"]
-  }
+  "extends": "airbnb"
 }
