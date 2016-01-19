@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Deck from './Deck';
 import DeckStore from '../stores/DeckStore';
+import '../assets/app.less';
 
 export default class App extends Component {
   constructor(props) {

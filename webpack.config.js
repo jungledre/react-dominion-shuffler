@@ -8,8 +8,7 @@ module.exports = {
     loaders: [
       { test: /\.jsx?$/, loader: 'babel-loader' },
       { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.css$/, loader: 'style!css!'},
-      { test: /\.less$/, loader: 'less'},
+      { test: /\.less$/, loader: 'style!css!less'}
     ]
   },
   devtool: 'source-map',
@@ -18,8 +17,7 @@ module.exports = {
       '',
       '.js',
       '.jsx',
-      '.json',
-      '.less'
+      '.json'
     ]
   }
 };
