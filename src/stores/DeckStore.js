@@ -10,17 +10,13 @@ const cardData = require('../data/cards');
 const CHANGE_EVENT = 'change';
 
 const data = {
-  deck: cardData.cards,
+  deck: [],
   options: {
-    expansions: ['Dominion'],
-  },
+    expansions: []
+  }
 };
 
 const DeckStore = assign({}, EventEmitter.prototype, {
-  getInitialDeck() {
-    return deckUtils.getInitialDeck(data.deck);
-  },
-
   getDeck() {
     return data.deck;
   },
@@ -44,19 +40,13 @@ const DeckStore = assign({}, EventEmitter.prototype, {
     this.emit(CHANGE_EVENT);
   },
 
-    /**
-    * @param {function} callback
-    */
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
-    /**
-    * @param {function} callback
-    */
   removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
-  },
+  }
 });
 
 // Register callback to handle all updates
@@ -70,6 +60,12 @@ AppDispatcher.register(function handleUpdates(action) {
       } else {
         DeckStore.emitChange();
       }
+
+      break;
+
+    case DeckConstants.GET_INITIAL_DECK:
+      data.deck = DeckStore.getDeck();
+      DeckStore.emitChange();
 
       break;
 

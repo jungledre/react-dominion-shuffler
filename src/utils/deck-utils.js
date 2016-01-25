@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 module.exports = {
-  getInitialDeck(deck) {
+  getDeck(deck) {
     return _(deck)
       .where({ expansion: 'Dominion' })
       .sample(10)
@@ -32,14 +32,14 @@ module.exports = {
       });
     }
 
-    const otherCards = possibleCards.slice(0, 10 - optionsCards.length);
+    const otherCards = possibleCards.slice(0, 10 - _.size(optionsCards));
 
-    const cards = optionsCards.concat(otherCards);
+    const cards = options.checkBoxes ? otherCards.concat(optionsCards) : otherCards;
 
     return _(cards).sortBy('name').sortBy('expansion').value();
   },
 
   shuffleDeck(deck, options) {
     return this.updateDeckOptions(_.shuffle(deck), options);
-  },
+  }
 };
