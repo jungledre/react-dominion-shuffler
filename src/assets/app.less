@@ -3,41 +3,93 @@
 .col-sm-5ths,
 .col-md-5ths,
 .col-lg-5ths {
-    position: relative;
-    min-height: 1px;
-    padding-right: 10px;
-    padding-left: 10px;
+  position: relative;
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 .col-xs-5ths {
-    width: 20%;
-    float: left;
+  width: 20%;
+  float: left;
 }
 @media (min-width: 768px) {
-.col-sm-5ths {
-        width: 20%;
-        float: left;
-    }
+  .col-sm-5ths {
+    width: 20%;
+    float: left;
+  }
 }
 @media (min-width: 992px) {
-    .col-md-5ths {
-        width: 20%;
-        float: left;
-    }
+  .col-md-5ths {
+    width: 20%;
+    float: left;
+  }
 }
 @media (min-width: 1200px) {
-    .col-lg-5ths {
-        width: 20%;
-        float: left;
-    }
+  .col-lg-5ths {
+    width: 20%;
+    float: left;
+  }
 }
 
 .dominion-card {
-    width: 20%;
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
-.dominion-card img {
-    border-radius: 5px;
-    box-shadow: -4px 5px 5px #141414;
-    width: 100%;
-    max-width: 200px;
+.dominion-card-img {
+  border-radius: 5px;
+  box-shadow: -4px 5px 5px #141414;
+  width: 100%;
+  max-width: 200px;
+}
+
+
+body {
+  background: #fafafa;
+}
+
+{
+  root: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    overflow: 'hidden',
+  },
+  sidebar: {
+    zIndex: 2,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    transition: 'transform .3s ease-out',
+    WebkitTransition: '-webkit-transform .3s ease-out',
+    willChange: 'transform',
+    overflowY: 'auto',
+  },
+  content: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    overflow: 'auto',
+    transition: 'left .3s ease-out, right .3s ease-out',
+  },
+  overlay: {
+    zIndex: 1,
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0,
+    visibility: 'hidden',
+    transition: 'opacity .3s ease-out',
+    backgroundColor: 'rgba(0,0,0,.3)',
+  },
+  dragHandle: {
+    zIndex: 1,
+    position: 'fixed',
+    top: 0,
+    bottom: 0,
+  },
 }

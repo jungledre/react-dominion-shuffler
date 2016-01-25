@@ -1,18 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 
-const propTypes = {
-  name: PropTypes.string,
-  data: PropTypes.object,
-};
+export default class extends Component {
+  static propTypes = {
+    name: PropTypes.string,
+    data: PropTypes.object,
+  };
 
-export default class Card extends Component {
   render() {
     return (
-      <div className="dominion-card col-xs-5ths">
-          <img src={this.props.data.image} />
+      <div className="dominion-card col-xs-6 col-md-4 col-md-5ths">
+        <img className="dominion-card-img" src={this.props.data.image} />
       </div>
     );
   }
 }
-
-Card.propTypes = propTypes;
