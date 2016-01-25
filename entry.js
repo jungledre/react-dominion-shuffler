@@ -7,6 +7,7 @@ import Deck from './src/containers/Deck';
 import Options from './src/containers/Options';
 import About from './src/components/About';
 import DeckActions from './src/actions/DeckActions';
+import './src/assets/app.less'
 
 const history = createHashHistory({ queryKey: false });
 
