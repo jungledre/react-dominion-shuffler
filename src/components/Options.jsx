@@ -1,30 +1,34 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import Card from './Card';
 import DeckActions from '../actions/DeckActions';
 import _ from 'lodash';
 
-export default class extends Component {
-  static propTypes = {
-    expansions: PropTypes.array,
-    options: PropTypes.object
-  };
-
+export default class Options extends Component {
   constructor() {
     super();
     this.handleChangeCheckboxes = this.handleChangeCheckboxes.bind(this);
     this.handleChangeExpansion = this.handleChangeExpansion.bind(this);
-    this.shuffleDeck = this.shuffleDeck.bind(this)
+    this.shuffleDeck = this.shuffleDeck.bind(this);
+    this.updateRouter = this.updateRouter.bind(this);
     this.state = {
       options: {
         expansions: ['Dominion'],
-        checkBoxes: [],
-      },
+        checkBoxes: []
+      }
     };
   }
 
   shuffleDeck() {
     DeckActions.updateDeck(this.state.options);
+  }
+
+  updateRouter() {
+    this.context.router.replace({
+      pathname: '/',
+      query: {
+        expansion: this.state.options.expansions,
+        checkbox: this.state.options.checkBoxes
+      }
+    });
   }
 
   handleChangeExpansion(val) {
@@ -34,7 +38,7 @@ export default class extends Component {
     options.expansions = selectedOptions.map(opt => {
       return opt.label;
     });
-
+    this.updateRouter();
     this.setState(options);
     DeckActions.updateDeck(this.state.options);
   }
@@ -42,13 +46,13 @@ export default class extends Component {
   handleChangeCheckboxes(val) {
     const value = val.target.value;
     const options = this.state.options;
-    if (options.checkBoxes[value]) {
+    if (_.includes(options.checkBoxes, value)) {
       options.checkBoxes.splice(value, 1);
     } else {
       options.checkBoxes.push(value);
     }
+    this.updateRouter();
     this.setState(options);
-
     DeckActions.updateDeck(options);
   }
 
@@ -72,26 +76,35 @@ export default class extends Component {
     });
 
     return (
-      <div className="text-center">
+      <div className="text-center u-topSpace">
         <div>
           <select
             multiple
-            className="opt-expansion"
+            className="opt-expansion"w
             onChange={this.handleChangeExpansion}
-            >{selectedOptions}
+          >{selectedOptions}
           </select>
         </div>
-        <div>
+        <div className="u-topSpace">
           {checkboxes}
         </div>
-        <div>
+        <div className="u-topSpace">
           <button
-            className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-            onClick={this.shuffleDeck}>
-            {'shuffle'}
+            className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+              mdl-button--accent"
+            onClick={this.shuffleDeck}
+          >{'shuffle'}
           </button>
         </div>
       </div>
     );
   }
 }
+Options.contextTypes = {
+  router: PropTypes.object
+};
+
+Options.propTypes = {
+  expansions: PropTypes.array,
+  options: PropTypes.object
+};

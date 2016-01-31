@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Card from './Card';
 
-export default props => {
-  let deck = props.deck;
+export default class Deck extends Component {
+  render() {
+    let deck = this.props.deck;
 
-  if (!deck) {
-    return <p>Select fewer options</p>;
-  }
+    if (!deck) {
+      return <p>Select fewer options</p>;
+    }
 
-  deck = deck.map((card, idx) => {
+    deck = deck.map((card, idx) => {
+      return (
+        <Card key={'card-' + idx} data={card} />
+      );
+    });
+
     return (
-      <Card key={'card-' + idx} data={card} />
+      <div className="container u-topSpace">
+        {deck}
+      </div>
     );
-  });
+  }
+}
 
-  return (
-    <div className="container">
-      {deck}
-    </div>
-  );
+Deck.propTypes = {
+  deck: PropTypes.array
 };

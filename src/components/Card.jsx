@@ -1,11 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class extends Component {
-  static propTypes = {
-    name: PropTypes.string,
-    data: PropTypes.object,
-  };
-
+export default class Card extends Component {
   render() {
     return (
       <div className="dominion-card col-xs-6 col-md-4 col-md-5ths">
@@ -14,3 +9,8 @@ export default class extends Component {
     );
   }
 }
+
+Card.propTypes = {
+  name: PropTypes.string,
+  data: PropTypes.object
+};
