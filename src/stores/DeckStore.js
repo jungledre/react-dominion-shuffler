@@ -11,9 +11,7 @@ const CHANGE_EVENT = 'change';
 
 const data = {
   deck: [],
-  options: {
-    expansions: []
-  }
+  options: {}
 };
 
 const DeckStore = assign({}, EventEmitter.prototype, {
@@ -60,13 +58,16 @@ AppDispatcher.register(function handleUpdates(action) {
       } else {
         DeckStore.emitChange();
       }
-
       break;
 
     case DeckConstants.GET_INITIAL_DECK:
       data.deck = DeckStore.getDeck();
       DeckStore.emitChange();
+      break;
 
+    case DeckConstants.GET_DECK_OPTIONS:
+      data.options = DeckStore.getDeckOptions();
+      DeckStore.emitChange();
       break;
 
     default:

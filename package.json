@@ -41,7 +41,7 @@
     "pre-commit": "^1.1.2",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
-    "react-router": "^1.0.3",
+    "react-router": "^2.0.0-rc5",
     "react-sidebar": "^2.1.1",
     "request": "^2.67.0",
     "style-loader": "^0.13.0",
