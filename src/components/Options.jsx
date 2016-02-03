@@ -17,6 +17,15 @@ export default class Options extends Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({
+      options: {
+        expansions: [this.props.options.expansions] || ['Dominion'],
+        checkBoxes: [this.props.options.options] || []
+      }
+    });
+  }
+
   shuffleDeck() {
     DeckActions.updateDeck(this.state.options);
   }
@@ -57,30 +66,51 @@ export default class Options extends Component {
   }
 
   render() {
-    let checkboxes = ['plusAction', 'plusBuy', 'plusCoin'];
-    checkboxes = checkboxes.map(name => {
+    let checkboxes = [
+      {
+        name: 'plusAction',
+        displayName: 'Plus Action'
+      },
+      {
+        name: 'plusBuy',
+        displayName: 'Plus Buy'
+      },
+      {
+        name:  'plusCoin',
+        displayName: 'Plus Coin'
+      }
+    ];
+    checkboxes = checkboxes.map(checkBox => {
       return (
-        <div key={'opt-' + name}>
+        <div key={'opt-' + checkBox.name}>
           <input
             onChange={this.handleChangeCheckboxes}
             type="checkbox"
-            value={name}
+            value={checkBox.name}
+            checked={_.includes(this.state.options.checkBoxes, checkBox.name)}
           />
-          {name}
+          {checkBox.displayName}
         </div>
       );
     });
 
-    const selectedOptions = this.props.expansions.map(function buildOptions(name, idx) {
-      return <option key={'expansion-' + idx} value={name}>{name}</option>;
+    const selectedOptions = this.props.expansions.map((name, idx) => {
+      return (
+        <option
+          key={'expansion-' + idx}
+          value={name}
+          selected={_.includes(this.state.options.expansions, name)}
+        >{name}
+        </option>
+      );
     });
 
     return (
-      <div className="text-center u-topSpace">
-        <div>
+      <div className="text-center">
+        <div className="u-topSpace">
           <select
             multiple
-            className="opt-expansion"w
+            className="opt-expansion"
             onChange={this.handleChangeExpansion}
           >{selectedOptions}
           </select>
@@ -90,8 +120,7 @@ export default class Options extends Component {
         </div>
         <div className="u-topSpace">
           <button
-            className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
-              mdl-button--accent"
+            className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
             onClick={this.shuffleDeck}
           >{'shuffle'}
           </button>

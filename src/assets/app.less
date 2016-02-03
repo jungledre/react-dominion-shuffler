@@ -1,19 +1,41 @@
 @import "utils";
+@import "colors";
 
 body {
   background: #fafafa;
 }
-a, a:hover, a:focus, a:visited {
+a, a:focus, a:visited {
   text-decoration:none;
-  color: inherit;
+  color: @green;
+}
+a:hover {
+  text-decoration: none;
+  color: @light-grey;
+}
+ul {
+  list-style-type: none;
+  padding: 0px;
 }
 h1 {
   margin: 0;
 }
 .navigation {
-  background-color: darkorange;
+  background-color: @black;
   color: white;
   height: 60px;
+}
+.navigation {
+  color: @green;
+}
+.navigation a:hover {
+  color: white;
+}
+.mdl-button {
+  background-color: @green;
+  color: white;
+}
+.mdl-button:hover {
+  background-color: @light-green;
 }
 .dominion-card {
   margin-bottom: 20px;
