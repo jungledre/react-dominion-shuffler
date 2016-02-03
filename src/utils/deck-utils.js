@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 module.exports = {
-  getDeck(deck) {
+  getInitialDeck(deck) {
     return _(deck)
       .where({ expansion: 'Dominion' })
       .sample(10)

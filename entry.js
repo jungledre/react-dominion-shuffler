@@ -6,6 +6,7 @@ import Layout from './src/components/Layout';
 import Deck from './src/containers/Deck';
 import Options from './src/containers/Options';
 import About from './src/components/About';
+import AboutDrawer from './src/components/AboutDrawer';
 import DeckActions from './src/actions/DeckActions';
 import './src/assets/app.less'
 
@@ -22,7 +23,7 @@ render((
   <Router history={history}>
     <Route path="/" component={Layout}>
       <IndexRoute onEnter={onEnter} components={{main: Deck, drawer: Options}} />
-      <Route path="/about" components={{main: About, drawer: About}} />
+      <Route path="/about" components={{main: About, drawer: AboutDrawer}} />
     </Route>
   </Router>
 ), document.getElementById('main'));

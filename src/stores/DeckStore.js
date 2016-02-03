@@ -61,7 +61,7 @@ AppDispatcher.register(function handleUpdates(action) {
       break;
 
     case DeckConstants.GET_INITIAL_DECK:
-      data.deck = DeckStore.getDeck();
+      data.deck = deckUtils.getInitialDeck(cardData.cards);
       DeckStore.emitChange();
       break;
 

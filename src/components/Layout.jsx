@@ -45,7 +45,7 @@ export default class Layout extends Component {
         <div className="navigation">
           <div className="container-fluid u-padding15">
             <span className="u-inline">
-              <h4 className="u-inline">
+              <h4 className="u-inline page-title">
                 { menuButton }<a href="#?expansion=Dominion"> Dominion Girl</a>
               </h4>
               <a href="#about" className="pull-right">About</a>
