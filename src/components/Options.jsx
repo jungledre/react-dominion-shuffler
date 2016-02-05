@@ -11,17 +11,20 @@ export default class Options extends Component {
     this.updateRouter = this.updateRouter.bind(this);
     this.state = {
       options: {
-        expansions: ['Dominion'],
+        expansions: [],
         checkBoxes: []
       }
     };
   }
 
   componentDidMount() {
+    const expansions = this.props.options.expansions || 'Dominion';
+    const checkBoxes = this.props.options.options ? [this.props.options.options] : [];
+
     this.setState({
       options: {
-        expansions: [this.props.options.expansions] || ['Dominion'],
-        checkBoxes: [this.props.options.options] || []
+        expansions: [expansions],
+        checkBoxes
       }
     });
   }
@@ -69,28 +72,39 @@ export default class Options extends Component {
     let checkboxes = [
       {
         name: 'plusAction',
-        displayName: 'Plus Action'
+        displayName: '+Action'
       },
       {
         name: 'plusBuy',
-        displayName: 'Plus Buy'
+        displayName: '+Buy'
       },
       {
-        name:  'plusCoin',
-        displayName: 'Plus Coin'
+        name: 'plusCoin',
+        displayName: '+Coin'
+      },
+      {
+        name: 'trash',
+        displayName: '+Trash'
       }
     ];
+
     checkboxes = checkboxes.map(checkBox => {
       return (
-        <div key={'opt-' + checkBox.name}>
+        <label
+          htmlFor={'checkbox-' + checkBox.name}
+          key={'opt-' + checkBox.name}
+          className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
+        >
           <input
+            id={'checkbox-' + checkBox.name}
+            className="mdl-checkbox__input"
             onChange={this.handleChangeCheckboxes}
             type="checkbox"
             value={checkBox.name}
             checked={_.includes(this.state.options.checkBoxes, checkBox.name)}
           />
-          {checkBox.displayName}
-        </div>
+          <span className="mdl-checkbox__label">{checkBox.displayName}</span>
+        </label>
       );
     });
 
@@ -106,21 +120,21 @@ export default class Options extends Component {
     });
 
     return (
-      <div className="text-center">
-        <div className="u-topSpace">
-          <select
-            multiple
-            className="opt-expansion"
-            onChange={this.handleChangeExpansion}
-          >{selectedOptions}
-          </select>
-        </div>
-        <div className="u-topSpace">
+      <div className="text-center u-margin20">
+        <label className="mdl-checkbox__label">Expansions</label>
+        <select
+          multiple
+          className="opt-expansion"
+          onChange={this.handleChangeExpansion}
+        >{selectedOptions}
+        </select>
+        <div className="u-margin20 u-alignLeft">
           {checkboxes}
         </div>
         <div className="u-topSpace">
           <button
-            className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+            className="mdl-button mdl-button-green mdl-js-button
+              mdl-button--raised mdl-js-ripple-effect"
             onClick={this.shuffleDeck}
           >{'shuffle'}
           </button>
