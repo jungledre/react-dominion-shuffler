@@ -23,11 +23,9 @@ export default class Layout extends Component {
 
   render() {
     const menuButton = (
-      <i className="glyphicon glyphicon-menu-hamburger"
-        aria-hidden="true"
-        onClick={this.menuButtonClick}
-      >
-      </i>
+      <button id="demo-menu-lower-left" className="mdl-button mdl-js-button mdl-button--icon">
+        <i className="material-icons" onClick={this.menuButtonClick}>more_vert</i>
+      </button>
     );
 
     const sideBarStyles = {
@@ -45,9 +43,10 @@ export default class Layout extends Component {
         <div className="navigation">
           <div className="container-fluid u-padding15">
             <span className="u-inline">
-              <h4 className="u-inline page-title">
-                { menuButton }<a href="#?expansion=Dominion"> Dominion Girl</a>
-              </h4>
+              <h5 className="u-inline page-title">
+                { menuButton }
+                <a href="#?expansion=Dominion"> Dominion Girl</a>
+              </h5>
               <a href="#about" className="pull-right">About</a>
             </span>
           </div>
